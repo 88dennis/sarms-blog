@@ -1,0 +1,83 @@
+ 
+ =====================
+    ES6 COMPATIBLE
+ =====================
+ SERVER SIDE
+ npm install --save-dev @babel/core @babel/node @babel/preset-env
+
+ create a file outside src or inside your root folder
+ .babelrc
+ inside === 
+  {
+     "presets":["@babel/preset-env"]
+ }
+ 
+ =====================
+    NODEMON
+ =====================
+ "scripts": {
+        "start": "npx nodemon --exec npx babel-node src/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+
+-------------------------------------------------------------
+
+ =====================
+    BODY PARSER
+ =====================
+
+    npm install body-parser
+    --------------------------
+
+    for req.body to work
+
+
+ =====================
+    MONGO
+ =====================
+
+https://mongodb.github.io/node-mongodb-native/3.0/tutorials/connect/#connect-to-mongodb
+
+https://docs.mongodb.com/manual/reference/method/db.collection.find/
+
+    npm install --save mongodb
+
+-------------------------------------------------------------------------
+
+============================================
+    TO MAKE FETCH WORK IN INTERNET EXPLORER
+============================================
+    CLIENT SIDE
+npm install --save whatwg-fetch
+
+in the index.js file of your front-end: import 'whatwg-fetch;
+
+
+add to package json    "proxy": "http://localhost:8000",
+restart your frontend when altering package.json
+--------------------------------------------------------------------------
+
+
+
+=======================
+DEPLOYMENT
+=========================
+go to index.html change the title
+
+go to manifest.json change the short name
+
+in client folder go to terminal npm run build
+
+copy build and paste to src folder of server
+
+
+
+import path from 'path;
+
+app.use(express.static(path.join(__dirname, '/build')));
+
+
+and at the end before the port:
+app.get('*', function(req,res){
+    res.sendFile(path.join(__dirname + '/build/index.html'));
+})

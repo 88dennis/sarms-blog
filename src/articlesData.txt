@@ -1,0 +1,23 @@
+// PASTE TO TERMINAL TO INITIALIZE DB
+db.articles.insertMany([
+    {
+        name: 'learn-react',
+        upvotes: 0,
+        comments:[]
+    },
+    {
+        name: 'learn-node',
+        upvotes: 0,
+        comments:[]
+    },
+    {
+        name: 'learn-mongo',
+        upvotes: 0,
+        comments:[]
+    },
+    {
+        name: 'learn-java',
+        upvotes: 0,
+        comments:[]
+    },
+])

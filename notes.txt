@@ -81,3 +81,19 @@ and at the end before the port:
 app.get('*', function(req,res){
     res.sendFile(path.join(__dirname + '/build/index.html'));
 })
+
+
+
+================
+GIT
+===================
+
+git init
+
+git add .
+
+git commit -m "first"
+
+//paste these two to the terminal
+git remote add origin https://github.com/88dennis/sarms-blog.git
+git push -u origin master

@@ -6,7 +6,6 @@ const app = express();
 var cors = require('cors');
 let PORT = process.env.PORT || 8000;
 // let PORT = 8000;
-import path from 'path';
 
 // if (process.env.NODE_ENV === 'production') {
 // app.use(express.static(path.join(__dirname, '/build')));

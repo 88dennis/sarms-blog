@@ -6,6 +6,8 @@ var MongoClient = require('mongodb').MongoClient
 const app = express();
 var cors = require('cors');
 let PORT = process.env.PORT || 8001;
+    const path = require('path');
+
 // let PORT = 8000;
 
 if (process.env.NODE_ENV === 'production') {

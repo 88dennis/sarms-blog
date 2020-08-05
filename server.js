@@ -10,6 +10,8 @@ let PORT = process.env.PORT || 8001;
 
 // let PORT = 8000;
 
+MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/my-blog', { useNewUrlParser: true, useUnifiedTopology: true })
+
 if (process.env.NODE_ENV === 'production') {
 app.use(express.static(path.join(__dirname, '/build')));
 }
@@ -69,7 +71,7 @@ const withDB = async (operations, res) => {
         const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true })
         const db = client.db('my-blog');
         await  operations(db);
-        client.close();
+        // client.close();
     } catch (error){
         res.status(500).json({ message: "ERRORRRRR", error });
     }
@@ -125,7 +127,7 @@ app.post('/api/articles/:name/upvote', async (req, res) => {
         const updatedArticleInfo = await dbase.collection('articles').findOne({name: articleName});
         // console.log(updatedArticleInfo);
         res.status(200).json(updatedArticleInfo);
-        client.close();
+        // client.close();
     } catch (error) {
         res.status(500).json({message: 'Error connecting to the db ' + error});
     }

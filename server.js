@@ -10,21 +10,23 @@ let PORT = process.env.PORT || 8001;
 
 // let PORT = 8000;
 
-if (process.env.NODE_ENV === 'production') {
-app.use(express.static(path.join(__dirname, '/build')));
-}
-
 // if (process.env.NODE_ENV === 'production') {
-//     // console.log('YOU ARE IN THE PRODUCTION ENV')
-//     app.use('/static', express.static(path.join(__dirname, './build/static')));
-//     app.get('/', (req, res) => {
-//         res.sendFile(path.join(__dirname, './build/'));
-//     })
+// app.use(express.static(path.join(__dirname, '/build')));
 // }
 
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'build')));
+  
+    app.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+  }
 //FAKE DATABASE FOR TESTING 
 // const articlesInfo = {
 //     'learn-react' : { upvotes: 0, comments :[], },
@@ -263,11 +265,11 @@ async function  seedBlogDb() {
 
 
 //THIS APP.GET SHOULD BE IN THE END
-if (process.env.NODE_ENV === 'production') {
-app.get('*', function(req,res){
-    res.sendFile(path.join(__dirname + '/build/index.html'));
-});
-}
+// if (process.env.NODE_ENV === 'production') {
+// app.get('*', function(req,res){
+//     res.sendFile(path.join(__dirname + '/build/index.html'));
+// });
+// }
 
 app.listen(PORT, function () {
     console.log("Connected to PORT " + "http://localhost:" + PORT)

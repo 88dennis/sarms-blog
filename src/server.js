@@ -3,15 +3,26 @@ let bodyParser = require('body-parser')
 const myModuleBlogSeed = require('./blogSeed'); //./blogSeed.js
 import { MongoClient } from 'mongodb';
 const app = express();
-let PORT = 8000;
+var cors = require('cors');
+let PORT = process.env.PORT || 8000;
+// let PORT = 8000;
 import path from 'path';
 
 // if (process.env.NODE_ENV === 'production') {
 // app.use(express.static(path.join(__dirname, '/build')));
 // }
-app.use(express.static(path.join(__dirname, '/build')));
+
+if (process.env.NODE_ENV === 'production') {
+    const path = require('path');
+    // console.log('YOU ARE IN THE PRODUCTION ENV')
+    app.use('/static', express.static(path.join(__dirname, './build/static')));
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, './build/'));
+    })
+}
 
 app.use(bodyParser.json());
+app.use(cors());
 
 //FAKE DATABASE FOR TESTING 
 // const articlesInfo = {
@@ -256,11 +267,6 @@ async function  seedBlogDb() {
 //     res.sendFile(path.join(__dirname + '/build/index.html'));
 // });
 // }
-
-
-app.get('*', function(req,res){
-    res.sendFile(path.join(__dirname + '/build/index.html'));
-});
 
 app.listen(PORT, function () {
     console.log("Connected to PORT " + "http://localhost:" + PORT)

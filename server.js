@@ -14,7 +14,6 @@ let PORT = process.env.PORT || 8001;
 // app.use(express.static(path.join(__dirname, '/build')));
 // }
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());

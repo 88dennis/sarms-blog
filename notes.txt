@@ -97,3 +97,9 @@ git commit -m "first"
 //paste these two to the terminal
 git remote add origin https://github.com/88dennis/sarms-blog.git
 git push -u origin master
+
+
+    "scripts": {
+        "start": "npx nodemon --exec npx babel-node src/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },

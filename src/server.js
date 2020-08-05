@@ -6,8 +6,10 @@ const app = express();
 let PORT = 8000;
 import path from 'path';
 
-
+if (process.env.NODE_ENV === 'production') {
 app.use(express.static(path.join(__dirname, '/build')));
+}
+
 app.use(bodyParser.json());
 
 //FAKE DATABASE FOR TESTING 
@@ -50,7 +52,7 @@ app.use(bodyParser.json());
 //THE WITHDB HAS A FUNCTION AS A PARAMETER; IT WILL TAKE A FUNCTION AS AN ARGUMENT
 const withDB = async (operations, res) => {
     try {
-        const client = await MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true })
+        const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true })
         const db = client.db('my-blog');
         await  operations(db);
         client.close();
@@ -95,7 +97,7 @@ app.post('/api/articles/:name/upvote', async (req, res) => {
     //TESTING DB
     try {
         const articleName = req.params.name;
-        const client = await MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true });
+        const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true });
         const dbase = client.db('my-blog');
         //FINDING THE EXISTING DATA
         const articleInfo = await dbase.collection('articles').findOne({name: articleName});
@@ -224,7 +226,7 @@ app.post('/api/articles/:name/add-comment', async(req, res) => {
 async function  seedBlogDb() {
     // console.log("hello")
     try {
-        const client = await MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true })
+        const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true })
         const db = client.db('my-blog');
         await db.collection('articles').deleteMany({});
 
@@ -248,9 +250,11 @@ async function  seedBlogDb() {
 
 
 //THIS APP.GET SHOULD BE IN THE END
+if (process.env.NODE_ENV === 'production') {
 app.get('*', function(req,res){
     res.sendFile(path.join(__dirname + '/build/index.html'));
 });
+}
 
 app.listen(PORT, function () {
     console.log("Connected to PORT " + "http://localhost:" + PORT)

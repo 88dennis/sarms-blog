@@ -1,10 +1,11 @@
 let express = require('express');
 let bodyParser = require('body-parser')
-const myModuleBlogSeed = require('./blogSeed'); //./blogSeed.js
-import { MongoClient } from 'mongodb';
+const myModuleBlogSeed = require('./src/blogSeed'); //./blogSeed.js
+var MongoClient = require('mongodb').MongoClient
+// import { MongoClient } from 'mongodb';
 const app = express();
 var cors = require('cors');
-let PORT = process.env.PORT || 8000;
+let PORT = process.env.PORT || 8001;
 // let PORT = 8000;
 
 // if (process.env.NODE_ENV === 'production') {

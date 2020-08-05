@@ -6,9 +6,10 @@ const app = express();
 let PORT = 8000;
 import path from 'path';
 
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
+// app.use(express.static(path.join(__dirname, '/build')));
+// }
 app.use(express.static(path.join(__dirname, '/build')));
-}
 
 app.use(bodyParser.json());
 
@@ -250,11 +251,16 @@ async function  seedBlogDb() {
 
 
 //THIS APP.GET SHOULD BE IN THE END
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
+// app.get('*', function(req,res){
+//     res.sendFile(path.join(__dirname + '/build/index.html'));
+// });
+// }
+
+
 app.get('*', function(req,res){
     res.sendFile(path.join(__dirname + '/build/index.html'));
 });
-}
 
 app.listen(PORT, function () {
     console.log("Connected to PORT " + "http://localhost:" + PORT)

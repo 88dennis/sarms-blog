@@ -234,12 +234,12 @@ app.get("/api/blog-seed", async function (req, res) {
        await db.collection('articles').insertMany(blogSeed);
        db.collection('articles').find({}).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
+        // console.log(result);
       });
-        res.status(200).send("deleted and added")
+        res.status(200).json("deleted and added")
         client.close();
     } catch {
-        res.status(500).send("error", error);
+        res.status(500).json("error", error);
     }
 }); 
 

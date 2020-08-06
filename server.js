@@ -36,10 +36,10 @@ app.use(cors());
 //     'learn-express' : { upvotes: 0, comments :[], },
 // };
 
-// app.get("/hello", (req, res) => {
-//     console.log(req)
-//     res.send("hello")
-// });
+app.get("/hello", (req, res) => {
+    console.log(req)
+    res.json("hello");
+});
 
 // app.get("/hello/:name", (req, res) => {
 //     console.log(req.params)
@@ -77,6 +77,12 @@ const withDB = async (operations, res) => {
     }
 }
 
+
+// app.post("/hello", function(req, res){
+
+//     res.json()
+
+// });
 app.get("/api/articles/:name", async (req, res) => {
     
     //TESTING THE DB 

@@ -225,23 +225,23 @@ app.post('/api/articles/:name/add-comment', async(req, res) => {
 });
 
 //FOR SEEDING USING ROUTES
-// app.get("/api/blog-seed", async function (req, res) {
-//     // console.log("hello")
-//     try {
-//         const client = await MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true })
-//         const db = client.db('my-blog');
-//         await db.collection('articles').deleteMany({});
-//        await db.collection('articles').insertMany(blogSeed);
-//        db.collection('articles').find({}).toArray(function(err, result) {
-//         if (err) throw err;
-//         console.log(result);
-//       });
-//         res.status(200).send("deleted and added")
-//         client.close();
-//     } catch {
-//         res.status(500).send("error", error);
-//     }
-// }); 
+app.get("/api/blog-seed", async function (req, res) {
+    // console.log("hello")
+    try {
+        const client = await MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true })
+        const db = client.db('my-blog');
+        await db.collection('articles').deleteMany({});
+       await db.collection('articles').insertMany(blogSeed);
+       db.collection('articles').find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+      });
+        res.status(200).send("deleted and added")
+        client.close();
+    } catch {
+        res.status(500).send("error", error);
+    }
+}); 
 
 
 //FUNCTION FOR SEEDING
